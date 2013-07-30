@@ -24,8 +24,15 @@ Background: movies have been added to database
 Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to check the 'PG' and 'R' checkboxes
   # enter step(s) to uncheck all other checkboxes
+  Given I check the following ratings: PG, R
+  And I uncheck the following ratings: PG-13, G
   # enter step to "submit" the search form on the homepage
+  When I press "ratings_submit"
+  Then I should be on the movies page 
   # enter step(s) to ensure that PG and R movies are visible
+  And the "" field within td should not contain "PG-13"
+  And the "" field within td should not contain "G"
+
   # enter step(s) to ensure that other movies are not visible
 
 Scenario: no ratings selected
