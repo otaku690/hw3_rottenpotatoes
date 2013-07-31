@@ -76,17 +76,17 @@ end
 # TODO: Add support for checkbox, select or option
 # based on naming conventions.
 #
-Given /^(?:|I )check the following:$/ do |fields|
-  fields.each do |name|
-    check(name)
-  end
-end
+#Given /^(?:|I )check the following:$/ do |fields|
+#  fields.each do |name|
+#    check(name)
+#  end
+#end
 
-Given /^(?:|I )uncheck the following:$/ do |fields|
-  fields.each do |name|
-    uncheck(name)
-  end
-end
+#Given /^(?:|I )uncheck the following:$/ do |fields|
+#  fields.each do |name|
+#    uncheck(name)
+#  end
+#end
 
 When /^(?:|I )fill in the following:$/ do |fields|
   fields.rows_hash.each do |name, value|

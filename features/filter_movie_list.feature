@@ -24,19 +24,39 @@ Background: movies have been added to database
 Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to check the 'PG' and 'R' checkboxes
   # enter step(s) to uncheck all other checkboxes
-  Given I check the following ratings: PG, R
-  And I uncheck the following ratings: PG-13, G
+  #Given I check the following ratings: PG, R
+  Given I uncheck the following ratings: PG-13, G
   # enter step to "submit" the search form on the homepage
   When I press "ratings_submit"
   Then I should be on the movies page 
   # enter step(s) to ensure that PG and R movies are visible
-  And the "" field within td should not contain "PG-13"
-  And the "" field within td should not contain "G"
-
-  # enter step(s) to ensure that other movies are not visible
-
-Scenario: no ratings selected
-  # see assignment
+  Then I should not see movies with the following ratings: PG-13, G
+  And I should see movies with the following ratings: PG, R
+  And the "ratings_G" checkbox should not be checked
+  And the "ratings_R" checkbox should be checked
+  And the "ratings_PG" checkbox should be checked
+  And the "ratings_PG-13" checkbox should not be checked
+ 
 
 Scenario: all ratings selected
-  # see assignment
+  Given I check the following ratings: PG-13, G
+  When I press "ratings_submit"
+  Then I should be on the movies page
+  And the "ratings_G" checkbox should be checked
+  And the "ratings_R" checkbox should be checked
+  And the "ratings_PG" checkbox should be checked
+  And the "ratings_PG-13" checkbox should be checked
+  #And the "ratings_NC-17" checkbox should be checked
+  And I should see all of the movies
+
+Scenario: no ratings selected
+  Given I uncheck the following ratings: PG, R, PG-13, G, NC-17
+  When I press "ratings_submit"
+  Then I should be on the movies page 
+#And I should see no movies
+# And the "ratings_G" checkbox should not be checked
+# And the "ratings_R" checkbox should not be checked
+# And the "ratings_PG" checkbox should not be checked
+#  And the "ratings_PG-13" checkbox should not be checked
+#  And the "ratings_NC-17" checkbox should be checked
+
